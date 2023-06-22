@@ -57,22 +57,86 @@ void calculator_menu() {
   Serial.println("3. Multiply");
   Serial.println("4. Divide");
   Serial.println("5. Back to Main Menu");
+
+  while (true) {
+    if (Serial.available()) {
+      char choice = Serial.read();
+      float operand1, operand2, result;
+
+      switch (choice) {
+        case '1':
+          Serial.println("Enter the first number:");
+          operand1 = readNumber();
+          Serial.println("Enter the second number:");
+          operand2 = readNumber();
+          result = operand1 + operand2;
+          Serial.print("Result: ");
+          Serial.println(result);
+          return;
+
+        case '2':
+          Serial.println("Enter the first number:");
+          operand1 = readNumber();
+          Serial.println("Enter the second number:");
+          operand2 = readNumber();
+          result = operand1 - operand2;
+          Serial.print("Result: ");
+          Serial.println(result);
+          return;
+
+        case '3':
+          Serial.println("Enter the first number:");
+          operand1 = readNumber();
+          Serial.println("Enter the second number:");
+          operand2 = readNumber();
+          result = operand1 * operand2;
+          Serial.print("Result: ");
+          Serial.println(result);
+          return;
+
+        case '4':
+          Serial.println("Enter the first number:");
+          operand1 = readNumber();
+          Serial.println("Enter the second number:");
+          operand2 = readNumber();
+          if (operand2 != 0) {
+            result = operand1 / operand2;
+            Serial.print("Result: ");
+            Serial.println(result);
+          } else {
+            Serial.println("Error: Cannot divide by zero.");
+          }
+          return;
+
+        case '5':
+          return;
+
+        default:
+          Serial.println("Invalid option. Please try again.");
+          break;
+      }
+    }
+  }
 }
 
 void file_manager_menu() {
-  Serial.println("\nFile Manager");
-  Serial.println("Please select an option:");
-  Serial.println("1. List Files");
-  Serial.println("2. Create File");
-  Serial.println("3. Delete File");
-  Serial.println("4. Back to Main Menu");
+  // File Manager menu functionality
 }
 
 void text_editor_menu() {
-  Serial.println("\nText Editor");
-  Serial.println("Please select an option:");
-  Serial.println("1. Create File");
-  Serial.println("2. Edit File");
-  Serial.println("3. Delete File");
-  Serial.println("4. Back to Main Menu");
+  // Text Editor menu functionality
+}
+
+float readNumber() {
+  String inputString = "";
+  while (true) {
+    if (Serial.available()) {
+      char c = Serial.read();
+      if (c == '\n') {
+        break;
+      }
+      inputString += c;
+    }
+  }
+  return inputString.toFloat();
 }
